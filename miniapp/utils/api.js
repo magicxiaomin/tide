@@ -68,6 +68,14 @@ function createCloudApi(cloudClient = getDefaultCloudClient()) {
       } catch (error) {
         throw new Error(`data-forecast cloud function failed: ${normalizeCloudError(error)}`)
       }
+    },
+
+    async createCatch(payload) {
+      try {
+        return await callCloudFunction(cloudClient, CLOUD_FUNCTIONS.CATCHES_CREATE, payload)
+      } catch (error) {
+        throw new Error(`catches-create cloud function failed: ${normalizeCloudError(error)}`)
+      }
     }
   }
 }

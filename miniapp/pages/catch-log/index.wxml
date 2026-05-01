@@ -1,1 +1,31 @@
-<view class="placeholder">渔获记录将在 Week 5 完成。</view>
+<view class="screen catch-log">
+  <view class="title">记一笔渔获</view>
+  <view class="snapshot">系统已自动记录: {{snapshotText}}</view>
+
+  <view class="section">
+    <view class="section-title">鱼种和数量</view>
+    <view class="species-row" wx:for="{{speciesRows}}" wx:key="name">
+      <view>{{item.name}}</view>
+      <view class="counter">
+        <button data-name="{{item.name}}" data-delta="-1" bindtap="changeSpecies">-</button>
+        <text>{{item.count}}</text>
+        <button data-name="{{item.name}}" data-delta="1" bindtap="changeSpecies">+</button>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">用饵</view>
+    <view class="chips">
+      <button wx:for="{{baitOptions}}" wx:key="*this" data-bait="{{item}}" bindtap="selectBait" class="{{form.bait === item ? 'active' : ''}}">{{item}}</button>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">备注</view>
+    <textarea value="{{form.note}}" bindinput="updateNote" placeholder="水色、流速、钓法变化等"></textarea>
+  </view>
+
+  <button class="submit" loading="{{saving}}" bindtap="submit">保存渔获记录</button>
+  <view class="status">{{statusMessage}}</view>
+</view>

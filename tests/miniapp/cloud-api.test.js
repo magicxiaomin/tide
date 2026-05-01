@@ -161,3 +161,33 @@ test('getForecastData calls the Week 4 data-forecast cloud function', async () =
   ])
   assert.equal(result.days.length, 1)
 })
+
+test('createCatch calls the Week 5 catches-create cloud function', async () => {
+  const calls = []
+  const api = createCloudApi({
+    callFunction(options) {
+      calls.push(options)
+      return Promise.resolve({
+        result: {
+          id: 'catch-1'
+        }
+      })
+    }
+  })
+
+  const result = await api.createCatch({
+    spot_id: 'spot-1',
+    species: [{ name: '真鲷', count: 2 }]
+  })
+
+  assert.deepEqual(calls, [
+    {
+      name: 'catches-create',
+      data: {
+        spot_id: 'spot-1',
+        species: [{ name: '真鲷', count: 2 }]
+      }
+    }
+  ])
+  assert.equal(result.id, 'catch-1')
+})

@@ -1,5 +1,90 @@
-.placeholder {
-  padding: 96rpx 40rpx;
+.catch-log {
+  min-height: 100vh;
+  padding: 64rpx 32rpx 48rpx;
+  background: #eaf5f8;
+}
+
+.title {
   color: #102033;
-  font-size: 32rpx;
+  font-size: 42rpx;
+  font-weight: 800;
+}
+
+.snapshot,
+.status {
+  margin-top: 18rpx;
+  color: #5e7580;
+  font-size: 24rpx;
+  line-height: 1.5;
+}
+
+.section {
+  margin-top: 28rpx;
+  padding: 28rpx;
+  border-radius: 12rpx;
+  background: #ffffff;
+}
+
+.section-title {
+  color: #102033;
+  font-size: 28rpx;
+  font-weight: 800;
+}
+
+.species-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 22rpx;
+  color: #102033;
+  font-size: 28rpx;
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+}
+
+.counter button,
+.chips button {
+  margin: 0;
+  border-radius: 10rpx;
+  background: #edf7f8;
+  color: #0f6f7f;
+  font-size: 24rpx;
+}
+
+.counter text {
+  min-width: 40rpx;
+  text-align: center;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14rpx;
+  margin-top: 22rpx;
+}
+
+.chips button.active {
+  background: #0f6f7f;
+  color: #ffffff;
+}
+
+textarea {
+  width: 100%;
+  min-height: 180rpx;
+  margin-top: 18rpx;
+  color: #102033;
+  font-size: 26rpx;
+}
+
+.submit {
+  margin: 34rpx 0 0;
+  border-radius: 12rpx;
+  background: #0f6f7f;
+  color: #ffffff;
+  font-size: 28rpx;
+  font-weight: 700;
 }

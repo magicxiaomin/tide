@@ -7,6 +7,7 @@ module.exports = {
     SETUP_DB: 'setup-db',
     DATA_TODAY: 'data-today',
     SPOTS_NEARBY: 'spots-nearby',
-    DATA_FORECAST: 'data-forecast'
+    DATA_FORECAST: 'data-forecast',
+    CATCHES_CREATE: 'catches-create'
   }
 }
