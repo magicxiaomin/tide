@@ -6,6 +6,7 @@
     "pages/home/index",
     "pages/forecast/index",
     "pages/catch-log/index",
+    "pages/catch-card/index",
     "pages/spots/index",
     "pages/my-catches/index"
   ],

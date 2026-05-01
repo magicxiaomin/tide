@@ -38,6 +38,6 @@
     <textarea value="{{form.note}}" bindinput="updateNote" placeholder="水色、流速、钓法变化等"></textarea>
   </view>
 
-  <button class="submit" loading="{{saving}}" bindtap="submit">保存渔获记录</button>
+  <button class="submit" loading="{{saving}}" bindtap="submit">保存并生成渔获卡</button>
   <view class="status">{{statusMessage}}</view>
 </view>

@@ -1,6 +1,10 @@
 const { createCloudApi } = require('../../utils/api')
 const { getUserSettings } = require('../../utils/cache')
 const {
+  buildCatchCardStoragePayload,
+  storeLatestCatchCard
+} = require('../../utils/catch-card')
+const {
   DEFAULT_SPECIES,
   buildCatchPayload,
   createDefaultCatchForm,
@@ -114,6 +118,16 @@ Page({
 
     try {
       const result = await createCloudApi().createCatch(payload)
+      const card = buildCatchCardStoragePayload({
+        result,
+        payload,
+        spot: settings.active_spot
+      })
+
+      storeLatestCatchCard(card)
+      wx.navigateTo({
+        url: '/pages/catch-card/index'
+      })
 
       this.setData({
         saving: false,

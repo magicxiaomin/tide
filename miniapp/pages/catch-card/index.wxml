@@ -1,0 +1,33 @@
+<view class="screen catch-card">
+  <view class="hero">
+    <view class="eyebrow">渔获卡预览</view>
+    <view class="title">保存到相册，再发朋友圈</view>
+    <view class="subtitle">照片只在本机参与合成，不上传服务器。</view>
+  </view>
+
+  <view class="empty" wx:if="{{!hasCard}}">
+    <view>还没有可生成的渔获记录</view>
+    <button bindtap="backToEdit">返回记录</button>
+  </view>
+
+  <block wx:else>
+    <view class="canvas-wrap">
+      <canvas
+        canvas-id="catchCard"
+        class="card-canvas"
+        style="width: {{canvasWidth}}rpx; height: {{canvasHeight}}rpx;"
+      ></canvas>
+    </view>
+
+    <view class="actions">
+      <button bindtap="backToEdit">返回修改</button>
+      <button class="primary" loading="{{saving}}" bindtap="saveToAlbum">保存到相册</button>
+    </view>
+
+    <view class="hint">微信限制不能直接发朋友圈，保存图片后从相册分享即可。</view>
+    <view class="status {{needsSettings ? 'warn' : ''}}" wx:if="{{statusMessage}}">
+      {{statusMessage}}
+      <button wx:if="{{needsSettings}}" bindtap="openSettings">打开设置</button>
+    </view>
+  </block>
+</view>
