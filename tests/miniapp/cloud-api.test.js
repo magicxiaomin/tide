@@ -36,3 +36,66 @@ test('hello normalizes cloud function failures into readable errors', async () =
     /hello cloud function failed: cloud unavailable/
   )
 })
+
+test('getTodayData calls the Week 2 data-today cloud function', async () => {
+  const calls = []
+  const api = createCloudApi({
+    callFunction(options) {
+      calls.push(options)
+      return Promise.resolve({
+        result: {
+          date: '2026-05-01',
+          spot: { name: '舟山测试钓点' },
+          tide_type: '潮差 4.6 m'
+        }
+      })
+    }
+  })
+
+  const result = await api.getTodayData({
+    spot: {
+      id: 1,
+      name: '舟山测试钓点',
+      latitude: 29.9857,
+      longitude: 122.2072
+    },
+    date: '2026-05-01'
+  })
+
+  assert.deepEqual(calls, [
+    {
+      name: 'data-today',
+      data: {
+        spot: {
+          id: 1,
+          name: '舟山测试钓点',
+          latitude: 29.9857,
+          longitude: 122.2072
+        },
+        date: '2026-05-01'
+      }
+    }
+  ])
+  assert.equal(result.tide_type, '潮差 4.6 m')
+})
+
+test('getTodayData surfaces backend error messages', async () => {
+  const api = createCloudApi({
+    callFunction() {
+      return Promise.resolve({
+        result: {
+          error: {
+            code: 'DATA_TODAY_UNAVAILABLE',
+            message: '今日数据暂时不可用',
+            retryable: true
+          }
+        }
+      })
+    }
+  })
+
+  await assert.rejects(
+    () => api.getTodayData({}),
+    /data-today cloud function failed: 今日数据暂时不可用/
+  )
+})

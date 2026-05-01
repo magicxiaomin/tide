@@ -12,18 +12,38 @@ function normalizeCloudError(error) {
   return error && (error.message || error.errMsg) ? error.message || error.errMsg : String(error)
 }
 
+async function callCloudFunction(cloudClient, functionName, data = {}) {
+  const response = await cloudClient.callFunction({
+    name: functionName,
+    data
+  })
+  const result = response.result || response
+
+  if (result && result.error) {
+    throw new Error(result.error.message || result.error.code || 'cloud function returned an error')
+  }
+
+  return result
+}
+
 function createCloudApi(cloudClient = getDefaultCloudClient()) {
   return {
     async hello() {
       try {
-        const response = await cloudClient.callFunction({
-          name: CLOUD_FUNCTIONS.HELLO,
-          data: {}
-        })
-
-        return response.result || response
+        return await callCloudFunction(cloudClient, CLOUD_FUNCTIONS.HELLO)
       } catch (error) {
         throw new Error(`hello cloud function failed: ${normalizeCloudError(error)}`)
+      }
+    },
+
+    async getTodayData({ spot, date } = {}) {
+      try {
+        return await callCloudFunction(cloudClient, CLOUD_FUNCTIONS.DATA_TODAY, {
+          spot,
+          date
+        })
+      } catch (error) {
+        throw new Error(`data-today cloud function failed: ${normalizeCloudError(error)}`)
       }
     }
   }

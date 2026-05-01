@@ -1,6 +1,20 @@
 .home {
-  padding: 96rpx 40rpx;
-  background: #eaf5f8;
+  min-height: 100vh;
+  padding: 72rpx 32rpx 40rpx;
+  background: linear-gradient(180deg, #eaf5f8 0%, #f8fbfa 100%);
+}
+
+.topline {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24rpx;
+}
+
+.eyebrow {
+  color: #0f6f7f;
+  font-size: 24rpx;
+  font-weight: 700;
 }
 
 .title {
@@ -9,9 +23,92 @@
   font-weight: 800;
 }
 
-.copy {
-  margin-top: 20rpx;
+.refresh,
+.retry {
+  min-width: 120rpx;
+  margin: 0;
+  border-radius: 10rpx;
+  background: #0f6f7f;
+  color: #ffffff;
+  font-size: 24rpx;
+}
+
+.loading,
+.error,
+.summary,
+.tile {
+  margin-top: 28rpx;
+  border-radius: 12rpx;
+  background: #ffffff;
+  box-shadow: 0 16rpx 40rpx rgba(16, 32, 51, 0.07);
+}
+
+.loading,
+.error,
+.summary {
+  padding: 32rpx;
+}
+
+.loading {
   color: #5e7580;
   font-size: 28rpx;
   line-height: 1.6;
+}
+
+.error {
+  color: #a13d24;
+  font-size: 26rpx;
+  line-height: 1.5;
+}
+
+.retry {
+  margin-top: 24rpx;
+}
+
+.summary-label,
+.label,
+.summary-note,
+.source {
+  color: #5e7580;
+  font-size: 24rpx;
+}
+
+.summary-value {
+  margin-top: 10rpx;
+  color: #102033;
+  font-size: 48rpx;
+  font-weight: 800;
+}
+
+.summary-note {
+  margin-top: 14rpx;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20rpx;
+  margin-top: 4rpx;
+}
+
+.tile {
+  min-height: 152rpx;
+  padding: 26rpx;
+}
+
+.wide {
+  grid-column: span 2;
+}
+
+.value {
+  margin-top: 14rpx;
+  color: #102033;
+  font-size: 30rpx;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.source {
+  margin-top: 14rpx;
+  line-height: 1.5;
 }

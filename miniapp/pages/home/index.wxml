@@ -1,4 +1,50 @@
 <view class="screen home">
-  <view class="title">Week 1 已连接</view>
-  <view class="copy">首屏已经可以调用 CloudBase hello 云函数并显示 openid。</view>
+  <view class="topline">
+    <view>
+      <view class="eyebrow">今日数据</view>
+      <view class="title">{{today.spot.name || '舟山默认钓点'}}</view>
+    </view>
+    <button class="refresh" bindtap="retry">刷新</button>
+  </view>
+
+  <view class="loading" wx:if="{{loading}}">正在读取潮汐、天气、气压和月相</view>
+  <view class="error" wx:elif="{{errorMessage}}">
+    <view>{{errorMessage}}</view>
+    <button class="retry" bindtap="retry">重试</button>
+  </view>
+
+  <block wx:else>
+    <view class="summary">
+      <view class="summary-label">{{today.date}}</view>
+      <view class="summary-value">{{today.tide_type}}</view>
+      <view class="summary-note">更新时间 {{today.fetched_at}}</view>
+    </view>
+
+    <view class="grid">
+      <view class="tile">
+        <view class="label">风</view>
+        <view class="value">{{today.wind.direction || '--'}} {{today.wind.level || '--'}} 级</view>
+      </view>
+      <view class="tile">
+        <view class="label">天气</view>
+        <view class="value">{{today.weather.description || '--'}} {{today.weather.temp_current || '--'}}°C</view>
+      </view>
+      <view class="tile">
+        <view class="label">水温</view>
+        <view class="value">{{today.weather.water_temp || '--'}}°C</view>
+      </view>
+      <view class="tile">
+        <view class="label">气压</view>
+        <view class="value">{{today.pressure.current || '--'}} hPa</view>
+      </view>
+      <view class="tile wide">
+        <view class="label">月相</view>
+        <view class="value">{{today.moon.phase_text}}</view>
+      </view>
+      <view class="tile wide">
+        <view class="label">数据来源</view>
+        <view class="source">潮汐 {{today.sources.tide}} · 天气 {{today.sources.weather}} · 海况 {{today.sources.marine}}</view>
+      </view>
+    </view>
+  </block>
 </view>

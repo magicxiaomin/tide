@@ -17,6 +17,7 @@
       <view class="field-label">openid</view>
       <view class="openid">{{openid}}</view>
       <view class="timestamp" wx:if="{{fetchedAt}}">{{fetchedAt}}</view>
+      <button class="home-button" bindtap="goHome">查看今日数据</button>
     </block>
 
     <block wx:if="{{status === 'error'}}">

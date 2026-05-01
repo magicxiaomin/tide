@@ -42,5 +42,11 @@ Page({
 
   retry() {
     this.loadOpenid()
+  },
+
+  goHome() {
+    wx.navigateTo({
+      url: '/pages/home/index'
+    })
   }
 })

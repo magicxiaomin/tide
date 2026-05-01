@@ -4,6 +4,7 @@ module.exports = {
   CLOUD_ENV_ID,
   CLOUD_FUNCTIONS: {
     HELLO: 'hello',
-    SETUP_DB: 'setup-db'
+    SETUP_DB: 'setup-db',
+    DATA_TODAY: 'data-today'
   }
 }

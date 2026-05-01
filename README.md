@@ -11,6 +11,7 @@ Start here:
 - [Technical stack](docs/TECH_STACK.md)
 - [Screen specs](docs/SCREENS.md)
 - [Week 1 development setup](docs/WEEK1_DEV_SETUP.md)
+- [Week 2 data sources](docs/WEEK2_DATA_SOURCES.md)
 
 ## Development
 
