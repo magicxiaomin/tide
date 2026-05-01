@@ -22,6 +22,18 @@
   </view>
 
   <view class="section">
+    <view class="section-title">照片</view>
+    <view class="privacy">📵 照片只保存在你的手机本地，不会上传服务器</view>
+    <view class="photos">
+      <view class="photo" wx:for="{{form.photo_local_paths}}" wx:key="*this">
+        <image src="{{item}}" mode="aspectFill"></image>
+        <button data-index="{{index}}" bindtap="removePhoto">删除</button>
+      </view>
+      <button class="photo-add" bindtap="choosePhoto" wx:if="{{form.photo_local_paths.length < 9}}">+ 拍照</button>
+    </view>
+  </view>
+
+  <view class="section">
     <view class="section-title">备注</view>
     <textarea value="{{form.note}}" bindinput="updateNote" placeholder="水色、流速、钓法变化等"></textarea>
   </view>

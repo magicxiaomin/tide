@@ -8,7 +8,8 @@ function createDefaultCatchForm({ spotId, startedAt } = {}) {
     ended_at: '',
     species: [{ name: '真鲷', count: 0 }],
     bait: '',
-    note: ''
+    note: '',
+    photo_local_paths: []
   }
 }
 
@@ -37,7 +38,8 @@ function buildCatchPayload(form) {
     species: (form.species || []).filter((item) => Number(item.count) > 0),
     bait: form.bait || '',
     note: form.note || '',
-    photo_count: 0
+    photo_local_paths: form.photo_local_paths || [],
+    photo_count: (form.photo_local_paths || []).length
   }
 }
 

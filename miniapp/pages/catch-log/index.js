@@ -7,6 +7,7 @@ const {
   incrementSpecies,
   savePendingCatch
 } = require('../../utils/catch-form')
+const { addLocalPhotos, removeLocalPhoto } = require('../../utils/local-photos')
 
 function formatLocalDateTime(date = new Date()) {
   const pad = (value) => String(value).padStart(2, '0')
@@ -78,6 +79,28 @@ Page({
 
   updateNote(event) {
     this.setData({ 'form.note': event.detail.value })
+  },
+
+  choosePhoto() {
+    wx.chooseMedia({
+      count: 9 - (this.data.form.photo_local_paths || []).length,
+      mediaType: ['image'],
+      sourceType: ['album', 'camera'],
+      success: (res) => {
+        const newPaths = (res.tempFiles || []).map((file) => file.tempFilePath)
+        const paths = addLocalPhotos(this.data.form.photo_local_paths, newPaths)
+
+        this.setData({ 'form.photo_local_paths': paths })
+      }
+    })
+  },
+
+  removePhoto(event) {
+    const index = Number(event.currentTarget.dataset.index)
+
+    this.setData({
+      'form.photo_local_paths': removeLocalPhoto(this.data.form.photo_local_paths, index)
+    })
   },
 
   async submit() {

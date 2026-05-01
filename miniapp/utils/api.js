@@ -76,6 +76,17 @@ function createCloudApi(cloudClient = getDefaultCloudClient()) {
       } catch (error) {
         throw new Error(`catches-create cloud function failed: ${normalizeCloudError(error)}`)
       }
+    },
+
+    async getCatches({ page = 1, size = 20 } = {}) {
+      try {
+        return await callCloudFunction(cloudClient, CLOUD_FUNCTIONS.CATCHES_LIST, {
+          page,
+          size
+        })
+      } catch (error) {
+        throw new Error(`catches-list cloud function failed: ${normalizeCloudError(error)}`)
+      }
     }
   }
 }

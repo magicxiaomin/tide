@@ -1,1 +1,29 @@
-<view class="placeholder">我的渔获将在 Week 6 完成。</view>
+<view class="screen my-catches">
+  <view class="title">我的渔获</view>
+
+  <view class="stats">
+    <view><text>{{stats.total_trips}}</text><label>出海</label></view>
+    <view><text>{{stats.species_count}}</text><label>鱼种</label></view>
+    <view><text>{{stats.total_fish}}</text><label>尾数</label></view>
+  </view>
+
+  <view class="loading" wx:if="{{loading}}">正在读取渔获记录</view>
+  <view class="error" wx:elif="{{errorMessage}}">{{errorMessage}}</view>
+
+  <view class="timeline" wx:else>
+    <view class="item" wx:for="{{catches}}" wx:key="id">
+      <view class="thumb">
+        <image wx:if="{{item.has_photo}}" src="{{item.photo_local_paths[0]}}" mode="aspectFill"></image>
+        <view wx:elif="{{item.is_blank_trip}}">空军</view>
+        <view wx:else>无照片</view>
+      </view>
+      <view class="content">
+        <view class="spot">{{item.spot_name}}</view>
+        <view class="meta">{{item.started_at}}</view>
+        <view class="species">{{item.species_summary}}</view>
+        <view class="weather">{{item.weather_summary}}</view>
+      </view>
+    </view>
+    <view class="empty" wx:if="{{catches.length === 0}}">还没有渔获记录</view>
+  </view>
+</view>

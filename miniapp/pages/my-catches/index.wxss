@@ -1,5 +1,90 @@
-.placeholder {
-  padding: 96rpx 40rpx;
+.my-catches {
+  min-height: 100vh;
+  padding: 64rpx 32rpx 48rpx;
+  background: #eaf5f8;
+}
+
+.title {
   color: #102033;
-  font-size: 32rpx;
+  font-size: 42rpx;
+  font-weight: 800;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16rpx;
+  margin-top: 28rpx;
+}
+
+.stats view,
+.item {
+  border-radius: 12rpx;
+  background: #ffffff;
+}
+
+.stats view {
+  padding: 24rpx;
+  text-align: center;
+}
+
+.stats text {
+  display: block;
+  color: #102033;
+  font-size: 40rpx;
+  font-weight: 800;
+}
+
+.stats label,
+.loading,
+.error,
+.meta,
+.weather,
+.empty {
+  color: #5e7580;
+  font-size: 24rpx;
+}
+
+.timeline {
+  display: grid;
+  gap: 18rpx;
+  margin-top: 28rpx;
+}
+
+.item {
+  display: flex;
+  gap: 22rpx;
+  padding: 22rpx;
+}
+
+.thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 132rpx;
+  height: 132rpx;
+  flex: 0 0 132rpx;
+  border-radius: 10rpx;
+  overflow: hidden;
+  background: #edf7f8;
+  color: #5e7580;
+  font-size: 22rpx;
+}
+
+.thumb image {
+  width: 100%;
+  height: 100%;
+}
+
+.spot,
+.species {
+  color: #102033;
+  font-size: 28rpx;
+  font-weight: 800;
+}
+
+.meta,
+.species,
+.weather {
+  margin-top: 8rpx;
 }

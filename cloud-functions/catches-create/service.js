@@ -8,7 +8,7 @@ function buildCatchRecord({ openid, input, weatherSnapshot, now = new Date() }) 
     bait: input.bait || '',
     note: input.note || '',
     weather_snapshot_json: JSON.stringify(weatherSnapshot || {}),
-    photo_local_paths_json: JSON.stringify([]),
+    photo_local_paths_json: JSON.stringify(input.photo_local_paths || []),
     photo_count: Number(input.photo_count || 0),
     created_at: now.toISOString()
   }

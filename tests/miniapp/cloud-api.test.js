@@ -191,3 +191,31 @@ test('createCatch calls the Week 5 catches-create cloud function', async () => {
   ])
   assert.equal(result.id, 'catch-1')
 })
+
+test('getCatches calls the Week 6 catches-list cloud function', async () => {
+  const calls = []
+  const api = createCloudApi({
+    callFunction(options) {
+      calls.push(options)
+      return Promise.resolve({
+        result: {
+          catches: [],
+          total: 0
+        }
+      })
+    }
+  })
+
+  const result = await api.getCatches({ page: 1, size: 20 })
+
+  assert.deepEqual(calls, [
+    {
+      name: 'catches-list',
+      data: {
+        page: 1,
+        size: 20
+      }
+    }
+  ])
+  assert.equal(result.total, 0)
+})
