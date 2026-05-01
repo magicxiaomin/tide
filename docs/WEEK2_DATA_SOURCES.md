@@ -15,9 +15,19 @@ Week 2 的本地代码已完成以下链路:
 
 ## 数据源策略
 
+默认策略是 **免费数据优先**。不配置任何 API key 时，`data-today` 也会请求 Open-Meteo 免费接口，返回潮位近似数据、天气、风、气压、水温和本地月相。WorldTides 与 QWeather 保留为以后提升精度的可选增强。
+
 ### 潮汐
 
-优先使用 WorldTides v3:
+默认使用 Open-Meteo Marine 的 `sea_level_height_msl`:
+
+```text
+https://marine-api.open-meteo.com/v1/marine?latitude=...&longitude=...&hourly=sea_level_height_msl&timezone=auto&forecast_days=1
+```
+
+Open-Meteo 官方说明该数据不能替代航海历，近岸精度有限；它适合当前开发阶段先把产品链路跑通，正式内测前再按目标钓点验证精度。
+
+如果配置了 `WORLDTIDES_API_KEY`，后端会优先使用 WorldTides v3:
 
 ```text
 https://www.worldtides.info/api/v3?heights&extremes&date=YYYY-MM-DD&lat=...&lon=...&days=1&key=...
@@ -29,13 +39,26 @@ WorldTides 返回 `heights` 和 `extremes` 后，后端转换为:
 - `tide_extremes`
 - `tide_range`
 
-如果没有配置 `WORLDTIDES_API_KEY`，后端会临时使用 Open-Meteo Marine 的 `sea_level_height_msl` 作为开发兜底。Open-Meteo 官方说明该数据不能替代航海历，近岸精度有限，所以正式内测前仍应配置 WorldTides 或国家海洋数据源。
-
 使用 Open-Meteo 数据时，后续产品说明或关于页需要标明 Open-Meteo 及其数据来源归因。
 
 ### 天气与气压
 
-优先使用 QWeather 实时天气:
+默认使用 Open-Meteo Forecast 免费接口:
+
+```text
+https://api.open-meteo.com/v1/forecast?latitude=...&longitude=...&current=temperature_2m,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m,surface_pressure&timezone=auto&forecast_days=1
+```
+
+后端读取:
+
+- `current.temperature_2m`
+- `current.weather_code`
+- `current.wind_speed_10m`
+- `current.wind_direction_10m`
+- `current.wind_gusts_10m`
+- `current.surface_pressure`
+
+如果配置了 `QWEATHER_API_HOST` 和 `QWEATHER_JWT`，后端会优先使用 QWeather 实时天气:
 
 ```text
 GET /v7/weather/now?location=lng,lat&lang=zh&unit=m
@@ -50,8 +73,6 @@ Authorization: Bearer <QWEATHER_JWT>
 - `now.windScale`
 - `now.windSpeed`
 - `now.pressure`
-
-如果没有配置 QWeather，后端会返回 `天气源未配置`，主屏会如实展示空值，不给任何判断或建议。
 
 ### 水温
 
@@ -72,7 +93,9 @@ https://marine-api.open-meteo.com/v1/marine?latitude=...&longitude=...&current=s
 
 ## CloudBase 环境变量
 
-在 CloudBase 云函数环境中配置:
+当前免费模式不需要配置任何环境变量。
+
+如果后续要启用 WorldTides 或 QWeather，在 CloudBase 云函数环境中配置:
 
 ```text
 WORLDTIDES_API_KEY=你的 WorldTides key
@@ -96,4 +119,5 @@ QWEATHER_JWT=你的 QWeather JWT
 
 - WorldTides v3 文档说明 `heights`、`extremes`、`lat`、`lon`、`date`、`days`、`key` 等参数。
 - QWeather 实时天气文档说明 `/v7/weather/now`，位置参数为经纬度，响应中包含温度、风、气压等字段。
+- Open-Meteo Forecast 文档说明 `/v1/forecast` 支持当前温度、天气码、风速、风向、阵风和地面气压。
 - Open-Meteo Marine 文档说明 `/v1/marine` 支持 `sea_surface_temperature` 和 `sea_level_height_msl`。

@@ -7,7 +7,9 @@ const {
   normalizeOpenMeteoTideResponse
 } = require('../../cloud-functions/shared/tide-fetcher')
 const {
+  buildOpenMeteoForecastUrl,
   buildQWeatherNowUrl,
+  normalizeOpenMeteoForecastResponse,
   normalizeQWeatherNow,
   normalizeOpenMeteoMarineResponse
 } = require('../../cloud-functions/shared/weather-fetcher')
@@ -83,6 +85,81 @@ test('buildQWeatherNowUrl uses longitude,latitude location order', () => {
   })
 
   assert.equal(url, 'https://api.qweather.test/v7/weather/now?location=122.21,29.99&lang=zh&unit=m')
+})
+
+test('buildOpenMeteoForecastUrl requests free current weather fields', () => {
+  const url = buildOpenMeteoForecastUrl({
+    lat: 29.9857,
+    lng: 122.2072
+  })
+
+  assert.equal(
+    url,
+    'https://api.open-meteo.com/v1/forecast?latitude=29.9857&longitude=122.2072&current=temperature_2m%2Cweather_code%2Cwind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m%2Csurface_pressure&timezone=auto&forecast_days=1'
+  )
+})
+
+test('normalizeOpenMeteoForecastResponse converts free weather data to TideTai fields', () => {
+  const weather = normalizeOpenMeteoForecastResponse({
+    current: {
+      time: '2026-05-01T06:00',
+      temperature_2m: 19.4,
+      weather_code: 3,
+      wind_speed_10m: 23.2,
+      wind_direction_10m: 45,
+      wind_gusts_10m: 36.1,
+      surface_pressure: 1018.4
+    }
+  })
+
+  assert.deepEqual(weather, {
+    description: '阴',
+    temp_current: 19.4,
+    wind: {
+      direction: '东北',
+      level: 4,
+      speed_kmh: 23.2,
+      gust_level: 5,
+      vs_spot_orientation: ''
+    },
+    pressure: {
+      current: 1018.4,
+      trend_24h: null,
+      direction: 'flat'
+    },
+    observed_at: '2026-05-01T06:00',
+    source: 'open-meteo'
+  })
+})
+
+test('fetchWeatherData uses free Open-Meteo weather when QWeather is not configured', async () => {
+  const calls = []
+  const weather = await require('../../cloud-functions/shared/weather-fetcher').fetchWeatherData({
+    lat: 29.9857,
+    lng: 122.2072,
+    qweatherHost: '',
+    qweatherJwt: '',
+    async fetchJson(url) {
+      calls.push(url)
+      return {
+        current: {
+          time: '2026-05-01T06:00',
+          temperature_2m: 18.8,
+          weather_code: 1,
+          wind_speed_10m: 12.4,
+          wind_direction_10m: 180,
+          wind_gusts_10m: 24,
+          surface_pressure: 1012.2
+        }
+      }
+    }
+  })
+
+  assert.equal(calls.length, 1)
+  assert.equal(calls[0].startsWith('https://api.open-meteo.com/v1/forecast?'), true)
+  assert.equal(weather.description, '晴间多云')
+  assert.equal(weather.wind.direction, '南')
+  assert.equal(weather.source, 'open-meteo')
 })
 
 test('normalizeQWeatherNow converts current weather to TideTai fields', () => {
