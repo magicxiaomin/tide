@@ -5,6 +5,7 @@ module.exports = {
   CLOUD_FUNCTIONS: {
     HELLO: 'hello',
     SETUP_DB: 'setup-db',
-    DATA_TODAY: 'data-today'
+    DATA_TODAY: 'data-today',
+    SPOTS_NEARBY: 'spots-nearby'
   }
 }

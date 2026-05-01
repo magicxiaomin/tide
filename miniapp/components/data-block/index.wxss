@@ -1,0 +1,26 @@
+.tile {
+  min-height: 152rpx;
+  padding: 26rpx;
+  border-radius: 12rpx;
+  background: #ffffff;
+  box-shadow: 0 16rpx 40rpx rgba(16, 32, 51, 0.07);
+}
+
+.label,
+.source {
+  color: #5e7580;
+  font-size: 24rpx;
+}
+
+.value {
+  margin-top: 14rpx;
+  color: #102033;
+  font-size: 30rpx;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.source {
+  margin-top: 10rpx;
+  line-height: 1.4;
+}

@@ -45,6 +45,18 @@ function createCloudApi(cloudClient = getDefaultCloudClient()) {
       } catch (error) {
         throw new Error(`data-today cloud function failed: ${normalizeCloudError(error)}`)
       }
+    },
+
+    async getNearbySpots({ lat, lng, radiusKm } = {}) {
+      try {
+        return await callCloudFunction(cloudClient, CLOUD_FUNCTIONS.SPOTS_NEARBY, {
+          lat,
+          lng,
+          radiusKm
+        })
+      } catch (error) {
+        throw new Error(`spots-nearby cloud function failed: ${normalizeCloudError(error)}`)
+      }
     }
   }
 }

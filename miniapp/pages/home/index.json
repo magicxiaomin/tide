@@ -1,3 +1,7 @@
 {
-  "navigationBarTitleText": "鲷会"
+  "navigationBarTitleText": "鲷会",
+  "usingComponents": {
+    "tide-curve": "/components/tide-curve/index",
+    "data-block": "/components/data-block/index"
+  }
 }

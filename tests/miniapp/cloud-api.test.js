@@ -99,3 +99,35 @@ test('getTodayData surfaces backend error messages', async () => {
     /data-today cloud function failed: 今日数据暂时不可用/
   )
 })
+
+test('getNearbySpots calls the Week 3 spots-nearby cloud function', async () => {
+  const calls = []
+  const api = createCloudApi({
+    callFunction(options) {
+      calls.push(options)
+      return Promise.resolve({
+        result: {
+          spots: [{ id: 'spot-1', name: '测试钓点' }]
+        }
+      })
+    }
+  })
+
+  const result = await api.getNearbySpots({
+    lat: 29.9857,
+    lng: 122.2072,
+    radiusKm: 20
+  })
+
+  assert.deepEqual(calls, [
+    {
+      name: 'spots-nearby',
+      data: {
+        lat: 29.9857,
+        lng: 122.2072,
+        radiusKm: 20
+      }
+    }
+  ])
+  assert.equal(result.spots[0].name, '测试钓点')
+})

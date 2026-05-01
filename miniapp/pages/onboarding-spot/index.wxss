@@ -1,0 +1,69 @@
+.spot-select {
+  min-height: 100vh;
+  padding: 72rpx 32rpx 48rpx;
+  background: #eaf5f8;
+}
+
+.title {
+  color: #102033;
+  font-size: 42rpx;
+  font-weight: 800;
+}
+
+.copy,
+.loading,
+.error,
+.spot-meta,
+.current {
+  color: #5e7580;
+  font-size: 26rpx;
+}
+
+.copy {
+  margin-top: 16rpx;
+  line-height: 1.55;
+}
+
+.spot-list {
+  display: grid;
+  gap: 18rpx;
+  margin-top: 36rpx;
+}
+
+.spot-card {
+  position: relative;
+  padding: 28rpx;
+  border: 2rpx solid transparent;
+  border-radius: 12rpx;
+  background: #ffffff;
+}
+
+.spot-card.active {
+  border-color: #0f6f7f;
+}
+
+.spot-name {
+  color: #102033;
+  font-size: 30rpx;
+  font-weight: 800;
+}
+
+.spot-meta {
+  margin-top: 12rpx;
+}
+
+.current {
+  position: absolute;
+  top: 24rpx;
+  right: 24rpx;
+  color: #0f6f7f;
+}
+
+.primary {
+  margin: 42rpx 0 0;
+  border-radius: 12rpx;
+  background: #0f6f7f;
+  color: #ffffff;
+  font-size: 28rpx;
+  font-weight: 700;
+}

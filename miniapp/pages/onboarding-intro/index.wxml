@@ -1,0 +1,14 @@
+<view class="screen intro">
+  <view class="title">出海前的 30 秒,看一眼这里</view>
+  <view class="copy">鲷会把潮汐、风、天气、气压、月相整齐地摆在你面前。判断由你做,信息由我们给。</view>
+
+  <view class="bullets">
+    <view>🌊 本地化潮汐 · 精确到分钟的涨落</view>
+    <view>🌬️ 风对你的钓点是顺还是背</view>
+    <view>📝 渔获自动归档 · 一键朋友圈</view>
+    <view>📵 照片不上云 · 只在你的手机里</view>
+  </view>
+
+  <button class="primary" bindtap="next">下一步</button>
+  <button class="ghost" bindtap="skip">跳过</button>
+</view>

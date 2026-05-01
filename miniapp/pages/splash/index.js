@@ -1,4 +1,6 @@
 const { getOpenid } = require('../../utils/auth')
+const { getUserSettings } = require('../../utils/cache')
+const { decideSplashNextPage } = require('../../utils/navigation')
 
 Page({
   data: {
@@ -45,8 +47,8 @@ Page({
   },
 
   goHome() {
-    wx.navigateTo({
-      url: '/pages/home/index'
+    wx.redirectTo({
+      url: decideSplashNextPage(getUserSettings())
     })
   }
 })

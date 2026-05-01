@@ -1,0 +1,45 @@
+.intro {
+  padding: 96rpx 40rpx 48rpx;
+  background: linear-gradient(180deg, #eaf5f8 0%, #ffffff 100%);
+}
+
+.title {
+  color: #102033;
+  font-size: 48rpx;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.copy {
+  margin-top: 28rpx;
+  color: #506872;
+  font-size: 30rpx;
+  line-height: 1.65;
+}
+
+.bullets {
+  display: grid;
+  gap: 20rpx;
+  margin-top: 56rpx;
+  color: #102033;
+  font-size: 28rpx;
+}
+
+.primary,
+.ghost {
+  margin: 60rpx 0 0;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.primary {
+  background: #0f6f7f;
+  color: #ffffff;
+}
+
+.ghost {
+  margin-top: 20rpx;
+  background: transparent;
+  color: #0f6f7f;
+}

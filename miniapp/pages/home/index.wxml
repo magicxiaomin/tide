@@ -1,8 +1,9 @@
 <view class="screen home">
   <view class="topline">
-    <view>
+    <view bindtap="goSpots">
       <view class="eyebrow">今日数据</view>
       <view class="title">{{today.spot.name || '舟山默认钓点'}}</view>
+      <view class="spot-switch">点击切换钓点 ▾</view>
     </view>
     <button class="refresh" bindtap="retry">刷新</button>
   </view>
@@ -20,31 +21,25 @@
       <view class="summary-note">更新时间 {{today.fetched_at}}</view>
     </view>
 
+    <tide-curve curve="{{today.tide_curve}}" extremes="{{today.tide_extremes}}"></tide-curve>
+
     <view class="grid">
-      <view class="tile">
-        <view class="label">风</view>
-        <view class="value">{{today.wind.direction || '--'}} {{today.wind.level || '--'}} 级</view>
-      </view>
-      <view class="tile">
-        <view class="label">天气</view>
-        <view class="value">{{today.weather.description || '--'}} {{today.weather.temp_current || '--'}}°C</view>
-      </view>
-      <view class="tile">
-        <view class="label">水温</view>
-        <view class="value">{{today.weather.water_temp || '--'}}°C</view>
-      </view>
-      <view class="tile">
-        <view class="label">气压</view>
-        <view class="value">{{today.pressure.current || '--'}} hPa</view>
-      </view>
-      <view class="tile wide">
-        <view class="label">月相</view>
-        <view class="value">{{today.moon.phase_text}}</view>
-      </view>
+      <data-block label="风" value="{{today.wind.direction || '--'}} {{today.wind.level || '--'}} 级" note="阵风 {{today.wind.gust_level || '--'}} 级"></data-block>
+      <data-block label="天气" value="{{today.weather.description || '--'}}" note="{{today.weather.temp_current || '--'}}°C"></data-block>
+      <data-block label="水温" value="{{today.weather.water_temp || '--'}}°C" note="Open-Meteo Marine"></data-block>
+      <data-block label="气压" value="{{today.pressure.current || '--'}} hPa" note="{{today.pressure.direction || 'flat'}}"></data-block>
+      <data-block class="wide" label="月相" value="{{today.moon.phase_text}}" note="{{today.moon.moonrise || '月出待补充'}}"></data-block>
       <view class="tile wide">
         <view class="label">数据来源</view>
         <view class="source">潮汐 {{today.sources.tide}} · 天气 {{today.sources.weather}} · 海况 {{today.sources.marine}}</view>
       </view>
+    </view>
+
+    <view class="bottom-actions">
+      <button bindtap="goForecast">7 日</button>
+      <button bindtap="goCatchLog">记一笔</button>
+      <button bindtap="goSpots">钓点</button>
+      <button bindtap="goMyCatches">我的</button>
     </view>
   </block>
 </view>

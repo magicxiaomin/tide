@@ -1,4 +1,5 @@
 const { createCloudApi } = require('../../utils/api')
+const { getUserSettings } = require('../../utils/cache')
 
 const DEFAULT_SPOT = {
   id: 'dev-zhoushan',
@@ -11,6 +12,7 @@ Page({
   data: {
     loading: true,
     errorMessage: '',
+    currentSpot: DEFAULT_SPOT,
     today: {
       spot: {},
       wind: {},
@@ -22,6 +24,10 @@ Page({
   },
 
   onLoad() {
+    const settings = getUserSettings()
+    const currentSpot = settings && settings.active_spot ? settings.active_spot : DEFAULT_SPOT
+
+    this.setData({ currentSpot })
     this.loadTodayData()
   },
 
@@ -33,7 +39,7 @@ Page({
 
     try {
       const today = await createCloudApi().getTodayData({
-        spot: DEFAULT_SPOT
+        spot: this.data.currentSpot
       })
 
       this.setData({
@@ -50,5 +56,21 @@ Page({
 
   retry() {
     this.loadTodayData()
+  },
+
+  goForecast() {
+    wx.navigateTo({ url: '/pages/forecast/index' })
+  },
+
+  goCatchLog() {
+    wx.navigateTo({ url: '/pages/catch-log/index' })
+  },
+
+  goSpots() {
+    wx.navigateTo({ url: '/pages/spots/index' })
+  },
+
+  goMyCatches() {
+    wx.navigateTo({ url: '/pages/my-catches/index' })
   }
 })

@@ -23,6 +23,12 @@
   font-weight: 800;
 }
 
+.spot-switch {
+  margin-top: 8rpx;
+  color: #5e7580;
+  font-size: 22rpx;
+}
+
 .refresh,
 .retry {
   min-width: 120rpx;
@@ -88,7 +94,7 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20rpx;
-  margin-top: 4rpx;
+  margin-top: 20rpx;
 }
 
 .tile {
@@ -111,4 +117,20 @@
 .source {
   margin-top: 14rpx;
   line-height: 1.5;
+}
+
+.bottom-actions {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12rpx;
+  margin-top: 24rpx;
+}
+
+.bottom-actions button {
+  margin: 0;
+  padding: 0;
+  border-radius: 10rpx;
+  background: #0f6f7f;
+  color: #ffffff;
+  font-size: 24rpx;
 }

@@ -1,7 +1,13 @@
 {
   "pages": [
     "pages/splash/index",
-    "pages/home/index"
+    "pages/onboarding-intro/index",
+    "pages/onboarding-spot/index",
+    "pages/home/index",
+    "pages/forecast/index",
+    "pages/catch-log/index",
+    "pages/spots/index",
+    "pages/my-catches/index"
   ],
   "window": {
     "navigationBarTitleText": "鲷会",

@@ -1,0 +1,21 @@
+<view class="screen spots">
+  <view class="header">
+    <view>
+      <view class="eyebrow">钓点管理</view>
+      <view class="title">已收藏 {{spots.length}} 个</view>
+    </view>
+    <button bindtap="backHome">返回</button>
+  </view>
+
+  <view class="loading" wx:if="{{loading}}">正在读取钓点</view>
+  <view class="error" wx:elif="{{errorMessage}}">{{errorMessage}}</view>
+
+  <view class="spot-list" wx:else>
+    <view class="spot-card {{item.is_active ? 'active' : ''}}" wx:for="{{spots}}" wx:key="id" data-id="{{item.id}}" bindtap="activateSpot">
+      <view class="spot-name">{{item.name}}</view>
+      <view class="spot-meta">{{item.distance_text || item.distance_km + ' km'}} · {{item.fishing_style}}</view>
+      <view class="spot-last">最近一次出海记录: 还没去过</view>
+      <view class="current" wx:if="{{item.is_active}}">当前</view>
+    </view>
+  </view>
+</view>

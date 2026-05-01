@@ -1,0 +1,8 @@
+<view class="curve-card">
+  <view class="curve-head">
+    <view class="curve-title">24 小时潮汐</view>
+    <view class="curve-caption">红线为当前时间</view>
+  </view>
+  <image class="curve-image" mode="widthFix" src="{{svgSrc}}"></image>
+  <view class="extremes">{{highLowText || '高低潮数据加载中'}}</view>
+</view>
