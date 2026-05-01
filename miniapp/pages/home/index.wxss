@@ -1,0 +1,17 @@
+.home {
+  padding: 96rpx 40rpx;
+  background: #eaf5f8;
+}
+
+.title {
+  color: #102033;
+  font-size: 40rpx;
+  font-weight: 800;
+}
+
+.copy {
+  margin-top: 20rpx;
+  color: #5e7580;
+  font-size: 28rpx;
+  line-height: 1.6;
+}

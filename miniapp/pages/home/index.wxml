@@ -1,0 +1,4 @@
+<view class="screen home">
+  <view class="title">Week 1 已连接</view>
+  <view class="copy">首屏已经可以调用 CloudBase hello 云函数并显示 openid。</view>
+</view>

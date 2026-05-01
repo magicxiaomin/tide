@@ -1,0 +1,18 @@
+{
+  "appid": "touristappid",
+  "projectname": "海钓潮汐",
+  "description": "中国海钓玩家潮汐决策小程序",
+  "compileType": "miniprogram",
+  "miniprogramRoot": "miniapp/",
+  "srcMiniprogramRoot": "miniapp/",
+  "cloudfunctionRoot": "cloud-functions/",
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "coverView": true
+  },
+  "libVersion": "3.4.7"
+}

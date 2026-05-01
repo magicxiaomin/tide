@@ -1,0 +1,28 @@
+page {
+  min-height: 100vh;
+  background: #eaf5f8;
+  color: #102033;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+view,
+text {
+  box-sizing: border-box;
+}
+
+.screen {
+  min-height: 100vh;
+}
+
+.button-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 88rpx;
+  padding: 0 32rpx;
+  border-radius: 12rpx;
+  background: #0f6f7f;
+  color: #ffffff;
+  font-size: 28rpx;
+  font-weight: 700;
+}

@@ -1,0 +1,12 @@
+{
+  "name": "tidetai",
+  "version": "0.1.0",
+  "private": true,
+  "description": "TideTai WeChat Mini Program",
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

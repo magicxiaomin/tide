@@ -1,0 +1,27 @@
+<view class="screen splash">
+  <view class="sea-mark"></view>
+
+  <view class="brand">
+    <view class="logo">🎣 鲷会</view>
+    <view class="tagline">TideTai · for the angler</view>
+  </view>
+
+  <view class="status-card">
+    <view class="loader" wx:if="{{status === 'loading'}}"></view>
+    <view class="status-title">{{message}}</view>
+    <view class="status-copy" wx:if="{{status === 'loading'}}">正在请求 hello 云函数</view>
+
+    <block wx:if="{{status === 'ready'}}">
+      <view class="field-label">后端返回</view>
+      <view class="hello">{{cloudMessage}}</view>
+      <view class="field-label">openid</view>
+      <view class="openid">{{openid}}</view>
+      <view class="timestamp" wx:if="{{fetchedAt}}">{{fetchedAt}}</view>
+    </block>
+
+    <block wx:if="{{status === 'error'}}">
+      <view class="error">{{errorMessage}}</view>
+      <button class="retry-button" bindtap="retry">重试</button>
+    </block>
+  </view>
+</view>

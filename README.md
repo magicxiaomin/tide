@@ -10,6 +10,11 @@ Start here:
 - [Week-by-week roadmap](docs/WEEK_BY_WEEK.md)
 - [Technical stack](docs/TECH_STACK.md)
 - [Screen specs](docs/SCREENS.md)
+- [Week 1 development setup](docs/WEEK1_DEV_SETUP.md)
+
+## Development
+
+Open this repository root in WeChat DevTools. The mini program source lives in `miniapp/`, and CloudBase functions live in `cloud-functions/`.
 
 ## Core Rule
 

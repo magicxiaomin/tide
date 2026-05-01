@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "pages/splash/index",
+    "pages/home/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "鲷会",
+    "navigationBarBackgroundColor": "#073B4C",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#EAF5F8",
+    "backgroundTextStyle": "light"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
