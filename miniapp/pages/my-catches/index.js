@@ -1,4 +1,6 @@
 const { createCloudApi } = require('../../utils/api')
+const { storeSelectedCatch } = require('../../utils/catch-detail')
+const { toReadableError, withLoading } = require('../../utils/ui')
 
 Page({
   data: {
@@ -18,23 +20,37 @@ Page({
 
   async loadCatches() {
     this.setData({
-      loading: true,
       errorMessage: ''
     })
 
     try {
-      const result = await createCloudApi().getCatches({ page: 1, size: 20 })
+      await withLoading(
+        (loading) => this.setData({ loading }),
+        async () => {
+          const result = await createCloudApi().getCatches({ page: 1, size: 20 })
 
-      this.setData({
-        loading: false,
-        catches: result.catches || [],
-        stats: result.stats || this.data.stats
-      })
+          this.setData({
+            catches: result.catches || [],
+            stats: result.stats || this.data.stats
+          })
+        }
+      )
     } catch (error) {
       this.setData({
-        loading: false,
-        errorMessage: error.message || String(error)
+        errorMessage: toReadableError(error, '读取渔获记录失败')
       })
     }
+  },
+
+  goCatchDetail(event) {
+    const index = Number(event.currentTarget.dataset.index)
+    const record = this.data.catches[index]
+
+    if (!record) {
+      return
+    }
+
+    storeSelectedCatch(record)
+    wx.navigateTo({ url: '/pages/catch-detail/index' })
   }
 })

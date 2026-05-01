@@ -4,10 +4,12 @@
     "pages/onboarding-intro/index",
     "pages/onboarding-spot/index",
     "pages/home/index",
+    "pages/data-detail/index",
     "pages/forecast/index",
     "pages/catch-log/index",
     "pages/catch-card/index",
     "pages/spots/index",
+    "pages/catch-detail/index",
     "pages/my-catches/index"
   ],
   "window": {

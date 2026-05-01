@@ -19,6 +19,19 @@
       ></canvas>
     </view>
 
+    <view class="privacy-panel">
+      <view class="panel-title">隐私字段</view>
+      <view class="privacy-row" wx:for="{{privacyOptions}}" wx:key="key">
+        <text>{{item.label}}</text>
+        <switch
+          color="#0E6F8F"
+          checked="{{item.checked}}"
+          data-key="{{item.key}}"
+          bindchange="togglePrivacy"
+        ></switch>
+      </view>
+    </view>
+
     <view class="actions">
       <button bindtap="backToEdit">返回修改</button>
       <button class="primary" loading="{{saving}}" bindtap="saveToAlbum">保存到相册</button>

@@ -47,6 +47,29 @@
   width: 100%;
 }
 
+.privacy-panel {
+  display: grid;
+  gap: 14rpx;
+  margin-top: 24rpx;
+  padding: 24rpx;
+  border-radius: 28rpx;
+  background: rgba(255, 255, 255, 0.86);
+}
+
+.panel-title {
+  color: #073b4c;
+  font-size: 28rpx;
+  font-weight: 900;
+}
+
+.privacy-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #34535f;
+  font-size: 26rpx;
+}
+
 .actions {
   display: grid;
   grid-template-columns: 1fr 1.4fr;

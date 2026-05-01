@@ -20,6 +20,7 @@
     <view class="summary">
       <view class="summary-label">{{today.date}}</view>
       <view class="summary-value">{{today.tide_type}}</view>
+      <button class="detail-entry" bindtap="goDataDetail">点击查看完整数据</button>
       <view class="summary-note">更新时间 {{today.fetched_at}}</view>
     </view>
 

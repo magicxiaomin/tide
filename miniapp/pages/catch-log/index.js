@@ -4,6 +4,7 @@ const {
   buildCatchCardStoragePayload,
   storeLatestCatchCard
 } = require('../../utils/catch-card')
+const { showToast } = require('../../utils/ui')
 const {
   DEFAULT_SPECIES,
   buildCatchPayload,
@@ -95,6 +96,9 @@ Page({
         const paths = addLocalPhotos(this.data.form.photo_local_paths, newPaths)
 
         this.setData({ 'form.photo_local_paths': paths })
+      },
+      fail: () => {
+        showToast('没有选择照片')
       }
     })
   },
@@ -135,6 +139,7 @@ Page({
       })
     } catch (error) {
       savePendingCatch(payload)
+      showToast('网络失败，已暂存在本地')
       this.setData({
         saving: false,
         statusMessage: '网络失败，已暂存在本地，将在后续同步'

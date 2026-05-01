@@ -85,6 +85,13 @@
 
 .meta,
 .species,
-.weather {
+.weather,
+.detail-link {
   margin-top: 8rpx;
+}
+
+.detail-link {
+  color: #0e6f8f;
+  font-size: 24rpx;
+  font-weight: 800;
 }

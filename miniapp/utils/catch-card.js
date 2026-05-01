@@ -2,6 +2,22 @@ const CARD_STORAGE_KEY = 'latest_catch_card'
 const CARD_WIDTH = 750
 const CARD_HEIGHT = 1000
 const BACKGROUND_COLORS = ['#052B3B', '#0E6F8F', '#F2C57C']
+const DEFAULT_CARD_PRIVACY = {
+  bait: true,
+  water_temp: true,
+  pressure: true,
+  moon: true,
+  wind: true,
+  tide: true
+}
+const CARD_PRIVACY_OPTIONS = [
+  { key: 'bait', label: '用饵' },
+  { key: 'water_temp', label: '水温' },
+  { key: 'pressure', label: '气压' },
+  { key: 'moon', label: '月相' },
+  { key: 'wind', label: '风' },
+  { key: 'tide', label: '潮型' }
+]
 
 function firstValue(...values) {
   return values.find((value) => value !== undefined && value !== null && value !== '')
@@ -92,12 +108,12 @@ function buildDataBoxes(payload = {}, weather = {}) {
   const moon = weather.moon || {}
 
   return [
-    { label: '用饵', value: payload.bait || '未记录' },
-    { label: '水温', value: formatTemperature(weatherInfo.water_temp) },
-    { label: '气压', value: formatPressure(pressure.current) },
-    { label: '月相', value: moon.phase_text || '未记录' },
-    { label: '风', value: formatWind(weather.wind || {}) },
-    { label: '潮型', value: weather.tide_type || '未记录' }
+    { key: 'bait', label: '用饵', value: payload.bait || '未记录' },
+    { key: 'water_temp', label: '水温', value: formatTemperature(weatherInfo.water_temp) },
+    { key: 'pressure', label: '气压', value: formatPressure(pressure.current) },
+    { key: 'moon', label: '月相', value: moon.phase_text || '未记录' },
+    { key: 'wind', label: '风', value: formatWind(weather.wind || {}) },
+    { key: 'tide', label: '潮型', value: weather.tide_type || '未记录' }
   ]
 }
 
@@ -117,6 +133,10 @@ function buildPhotoBlocks(photos = []) {
 function buildCatchCardDrawPlan(input = {}) {
   const payload = input.payload || {}
   const weather = input.weather_snapshot || input.weatherSnapshot || {}
+  const privacy = {
+    ...DEFAULT_CARD_PRIVACY,
+    ...(input.privacy || {})
+  }
   const photos = buildPhotoBlocks(input.photos || payload.photo_local_paths || [])
   const speciesRows = buildSpeciesRows(payload.species || [])
 
@@ -146,7 +166,7 @@ function buildCatchCardDrawPlan(input = {}) {
       points: buildWavePoints(weather.tide_curve || [])
     },
     speciesRows,
-    dataBoxes: buildDataBoxes(payload, weather),
+    dataBoxes: buildDataBoxes(payload, weather).filter((box) => privacy[box.key] !== false),
     brand: {
       primary: '鲷会',
       secondary: 'TideTai · 判断是用户的，信息是产品的承诺'
@@ -163,8 +183,35 @@ function buildCatchCardStoragePayload({ result = {}, payload = {}, spot = {}, ph
     },
     weather_snapshot: result.weather_snapshot || {},
     photos: photos || payload.photo_local_paths || [],
+    privacy: { ...DEFAULT_CARD_PRIVACY },
     created_at: new Date().toISOString()
   }
+}
+
+function toggleCardPrivacy(privacy = DEFAULT_CARD_PRIVACY, key) {
+  if (!Object.hasOwn(DEFAULT_CARD_PRIVACY, key)) {
+    return {
+      ...DEFAULT_CARD_PRIVACY,
+      ...privacy
+    }
+  }
+
+  const normalized = {
+    ...DEFAULT_CARD_PRIVACY,
+    ...privacy
+  }
+
+  return {
+    ...normalized,
+    [key]: !normalized[key]
+  }
+}
+
+function buildCatchCardShareTitle(input = {}) {
+  const payload = input.payload || {}
+  const spotName = firstValue(payload.spot_name, input.spot && input.spot.name, payload.spot_id, '这次')
+
+  return `我的${spotName}渔获卡`
 }
 
 function storeLatestCatchCard(card) {
@@ -197,12 +244,16 @@ function createAlbumAuthGuide(error = {}) {
 
 module.exports = {
   BACKGROUND_COLORS,
+  CARD_PRIVACY_OPTIONS,
   CARD_HEIGHT,
   CARD_STORAGE_KEY,
   CARD_WIDTH,
+  DEFAULT_CARD_PRIVACY,
   buildCatchCardDrawPlan,
+  buildCatchCardShareTitle,
   buildCatchCardStoragePayload,
   createAlbumAuthGuide,
   loadLatestCatchCard,
-  storeLatestCatchCard
+  storeLatestCatchCard,
+  toggleCardPrivacy
 }

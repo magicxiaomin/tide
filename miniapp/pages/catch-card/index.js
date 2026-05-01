@@ -1,9 +1,14 @@
 const {
   CARD_HEIGHT,
+  CARD_PRIVACY_OPTIONS,
   CARD_WIDTH,
+  DEFAULT_CARD_PRIVACY,
   buildCatchCardDrawPlan,
+  buildCatchCardShareTitle,
   createAlbumAuthGuide,
-  loadLatestCatchCard
+  loadLatestCatchCard,
+  storeLatestCatchCard,
+  toggleCardPrivacy
 } = require('../../utils/catch-card')
 
 function drawText(ctx, text, x, y, size, color) {
@@ -87,6 +92,7 @@ Page({
     canvasWidth: CARD_WIDTH,
     canvasHeight: CARD_HEIGHT,
     hasCard: false,
+    privacyOptions: [],
     saving: false,
     statusMessage: '',
     needsSettings: false
@@ -100,7 +106,14 @@ Page({
       return
     }
 
-    this.drawPlan = buildCatchCardDrawPlan(card)
+    this.card = {
+      ...card,
+      privacy: {
+        ...DEFAULT_CARD_PRIVACY,
+        ...(card.privacy || {})
+      }
+    }
+    this.refreshPlan()
     this.setData({ hasCard: true })
 
     const render = () => this.renderCard()
@@ -109,6 +122,24 @@ Page({
     } else {
       setTimeout(render, 0)
     }
+  },
+
+  onShow() {
+    if (wx.showShareMenu) {
+      wx.showShareMenu({
+        menus: ['shareAppMessage']
+      })
+    }
+  },
+
+  refreshPlan() {
+    this.drawPlan = buildCatchCardDrawPlan(this.card)
+    this.setData({
+      privacyOptions: CARD_PRIVACY_OPTIONS.map((option) => ({
+        ...option,
+        checked: this.card.privacy[option.key] !== false
+      }))
+    })
   },
 
   renderCard() {
@@ -178,6 +209,25 @@ Page({
         })
       }
     })
+  },
+
+  togglePrivacy(event) {
+    const key = event.currentTarget.dataset.key
+
+    this.card = {
+      ...this.card,
+      privacy: toggleCardPrivacy(this.card.privacy, key)
+    }
+    storeLatestCatchCard(this.card)
+    this.refreshPlan()
+    this.renderCard()
+  },
+
+  onShareAppMessage() {
+    return {
+      title: buildCatchCardShareTitle(this.card),
+      path: '/pages/home/index'
+    }
   },
 
   backToEdit() {

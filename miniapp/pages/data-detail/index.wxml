@@ -1,0 +1,18 @@
+<view class="screen data-detail">
+  <view class="empty" wx:if="{{!hasData}}">还没有可展示的数据，请先回到主屏刷新。</view>
+
+  <block wx:else>
+    <view class="hero">
+      <view class="eyebrow">完整数据</view>
+      <view class="title">只展示事实，不替你判断</view>
+      <view class="subtitle" wx:if="{{updatedAt}}">更新时间 {{updatedAt}}</view>
+    </view>
+
+    <view class="rows">
+      <view class="row" wx:for="{{rows}}" wx:key="label">
+        <text>{{item.label}}</text>
+        <view>{{item.value}}</view>
+      </view>
+    </view>
+  </block>
+</view>

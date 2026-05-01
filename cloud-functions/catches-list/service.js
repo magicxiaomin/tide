@@ -53,15 +53,22 @@ function buildCatchListResponse({ records, page = 1, size = 20 }) {
   const catches = (records || []).map((record) => {
     const snapshot = parseJson(record.weather_snapshot_json, {})
     const photoLocalPaths = parseJson(record.photo_local_paths_json, [])
+    const species = parseJson(record.species_json, [])
 
     return {
       id: record._id || record.id,
       spot_id: record.spot_id,
       spot_name: record.spot_name || record.spot_id || '未命名钓点',
       started_at: record.started_at || '',
+      ended_at: record.ended_at || '',
+      species,
       species_summary: summarizeSpecies(record.species_json),
+      bait: record.bait || '',
+      note: record.note || '',
+      weather_snapshot: snapshot,
       weather_summary: buildWeatherSummary(snapshot, record.bait),
       photo_local_paths: photoLocalPaths,
+      photo_count: Number(record.photo_count || photoLocalPaths.length || 0),
       has_photo: photoLocalPaths.length > 0,
       is_blank_trip: summarizeSpecies(record.species_json).startsWith('空军')
     }

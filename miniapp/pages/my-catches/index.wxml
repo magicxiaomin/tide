@@ -11,7 +11,7 @@
   <view class="error" wx:elif="{{errorMessage}}">{{errorMessage}}</view>
 
   <view class="timeline" wx:else>
-    <view class="item" wx:for="{{catches}}" wx:key="id">
+    <view class="item" wx:for="{{catches}}" wx:key="id" data-index="{{index}}" bindtap="goCatchDetail">
       <view class="thumb">
         <image wx:if="{{item.has_photo}}" src="{{item.photo_local_paths[0]}}" mode="aspectFill"></image>
         <view wx:elif="{{item.is_blank_trip}}">空军</view>
@@ -22,6 +22,7 @@
         <view class="meta">{{item.started_at}}</view>
         <view class="species">{{item.species_summary}}</view>
         <view class="weather">{{item.weather_summary}}</view>
+        <view class="detail-link">查看完整记录</view>
       </view>
     </view>
     <view class="empty" wx:if="{{catches.length === 0}}">还没有渔获记录</view>

@@ -1,5 +1,7 @@
 const { createCloudApi } = require('../../utils/api')
 const { getUserSettings } = require('../../utils/cache')
+const { storeLatestDataDetail } = require('../../utils/data-detail')
+const { toReadableError } = require('../../utils/ui')
 const {
   loadTodayCache,
   normalizeCachedToday,
@@ -72,7 +74,7 @@ Page({
 
       this.setData({
         loading: false,
-        errorMessage: error.message || String(error)
+        errorMessage: toReadableError(error, '读取今日数据失败，请稍后重试')
       })
     }
   },
@@ -83,6 +85,11 @@ Page({
 
   goForecast() {
     wx.navigateTo({ url: '/pages/forecast/index' })
+  },
+
+  goDataDetail() {
+    storeLatestDataDetail(this.data.today)
+    wx.navigateTo({ url: '/pages/data-detail/index' })
   },
 
   goCatchLog() {

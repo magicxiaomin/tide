@@ -95,6 +95,15 @@
   font-weight: 800;
 }
 
+.detail-entry {
+  margin: 20rpx 0 0;
+  border-radius: 999rpx;
+  background: #f2c57c;
+  color: #102033;
+  font-size: 24rpx;
+  font-weight: 800;
+}
+
 .summary-note {
   margin-top: 14rpx;
 }
