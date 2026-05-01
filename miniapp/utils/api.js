@@ -57,6 +57,17 @@ function createCloudApi(cloudClient = getDefaultCloudClient()) {
       } catch (error) {
         throw new Error(`spots-nearby cloud function failed: ${normalizeCloudError(error)}`)
       }
+    },
+
+    async getForecastData({ spot, days } = {}) {
+      try {
+        return await callCloudFunction(cloudClient, CLOUD_FUNCTIONS.DATA_FORECAST, {
+          spot,
+          days
+        })
+      } catch (error) {
+        throw new Error(`data-forecast cloud function failed: ${normalizeCloudError(error)}`)
+      }
     }
   }
 }

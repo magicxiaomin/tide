@@ -1,1 +1,27 @@
-<view class="placeholder">七日预报将在 Week 4 完成。</view>
+<view class="screen forecast">
+  <view class="header">
+    <view>
+      <view class="eyebrow">七日预报</view>
+      <view class="title">未来 7 天</view>
+    </view>
+    <button bindtap="backHome">返回</button>
+  </view>
+
+  <view class="skeleton" wx:if="{{loading}}">
+    <view wx:for="{{skeletonRows}}" wx:key="*this" class="skeleton-row"></view>
+  </view>
+  <view class="error" wx:elif="{{errorMessage}}">{{errorMessage}}</view>
+
+  <view class="days" wx:else>
+    <view class="day-row" wx:for="{{days}}" wx:key="date">
+      <view class="date">
+        <view class="label">{{item.label}}</view>
+        <view class="sub">{{item.date}}</view>
+      </view>
+      <view class="tide">{{item.tide_type}}</view>
+      <view class="wind">{{item.wind.direction || '--'}} {{item.wind.level || '--'}} 级</view>
+      <view class="weather">{{item.weather_emoji}} {{item.temp_max || '--'}}°C</view>
+    </view>
+    <view class="updated">更新时间 {{fetchedAt}}</view>
+  </view>
+</view>

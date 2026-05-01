@@ -131,3 +131,33 @@ test('getNearbySpots calls the Week 3 spots-nearby cloud function', async () => 
   ])
   assert.equal(result.spots[0].name, '测试钓点')
 })
+
+test('getForecastData calls the Week 4 data-forecast cloud function', async () => {
+  const calls = []
+  const api = createCloudApi({
+    callFunction(options) {
+      calls.push(options)
+      return Promise.resolve({
+        result: {
+          days: [{ date: '2026-05-01' }]
+        }
+      })
+    }
+  })
+
+  const result = await api.getForecastData({
+    spot: { id: 'spot-1' },
+    days: 7
+  })
+
+  assert.deepEqual(calls, [
+    {
+      name: 'data-forecast',
+      data: {
+        spot: { id: 'spot-1' },
+        days: 7
+      }
+    }
+  ])
+  assert.equal(result.days.length, 1)
+})

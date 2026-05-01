@@ -41,6 +41,7 @@
 
 .loading,
 .error,
+.cache-warning,
 .summary,
 .tile {
   margin-top: 28rpx;
@@ -51,6 +52,7 @@
 
 .loading,
 .error,
+.cache-warning,
 .summary {
   padding: 32rpx;
 }
@@ -64,6 +66,13 @@
 .error {
   color: #a13d24;
   font-size: 26rpx;
+  line-height: 1.5;
+}
+
+.cache-warning {
+  color: #8a5b00;
+  background: #fff5cf;
+  font-size: 24rpx;
   line-height: 1.5;
 }
 

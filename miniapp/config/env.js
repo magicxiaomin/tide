@@ -6,6 +6,7 @@ module.exports = {
     HELLO: 'hello',
     SETUP_DB: 'setup-db',
     DATA_TODAY: 'data-today',
-    SPOTS_NEARBY: 'spots-nearby'
+    SPOTS_NEARBY: 'spots-nearby',
+    DATA_FORECAST: 'data-forecast'
   }
 }

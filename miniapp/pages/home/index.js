@@ -1,5 +1,11 @@
 const { createCloudApi } = require('../../utils/api')
 const { getUserSettings } = require('../../utils/cache')
+const {
+  loadTodayCache,
+  normalizeCachedToday,
+  saveTodayCache,
+  shouldUseCachedData
+} = require('../../utils/data-cache')
 
 const DEFAULT_SPOT = {
   id: 'dev-zhoushan',
@@ -12,6 +18,7 @@ Page({
   data: {
     loading: true,
     errorMessage: '',
+    cacheWarning: '',
     currentSpot: DEFAULT_SPOT,
     today: {
       spot: {},
@@ -44,9 +51,25 @@ Page({
 
       this.setData({
         loading: false,
+        cacheWarning: '',
         today
       })
+      saveTodayCache(today)
     } catch (error) {
+      const cached = loadTodayCache()
+
+      if (shouldUseCachedData(cached)) {
+        const today = normalizeCachedToday(cached)
+
+        this.setData({
+          loading: false,
+          today,
+          cacheWarning: `网络连接失败，显示的是 ${today.cache_age_hours} 小时前的缓存数据`,
+          errorMessage: ''
+        })
+        return
+      }
+
       this.setData({
         loading: false,
         errorMessage: error.message || String(error)
